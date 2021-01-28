@@ -6,8 +6,8 @@
     <title>Home - PHP Motors</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Share+Tech&display=swap" rel="stylesheet">
-    <link rel = "stylesheet" href = "css/normalize.css">
-    <link rel = "stylesheet" media="screen" href = "css/main.css">
+    <link rel = "stylesheet" href = "/css/normalize.css">
+    <link rel = "stylesheet" media="screen" href = "/css/main.css">
 </head>
 <body>
     <div class = "page">
@@ -15,13 +15,13 @@
             <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header.php'; ?>
         </header>
         <nav>
-            <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/nav.php'; ?>
+            <?php echo $navList; ?>
         </nav>
         <main>
             <section>
                 <h1>Welcome to PHP Motors!</h1>
                 <div class = "container">
-                    <img src = "img/delorean.jpg" alt = "Delorean">
+                    <img src = "/img/delorean.jpg" alt = "Delorean">
                     <h2>DMC Delorean</h2>
                     <p>
                         3 Cup holders<br>
@@ -47,19 +47,19 @@
                 <h2>Delorean Upgrades</h2>
                 <div class = "upgrade">
                     <div class = "item">
-                        <img src = "img/flux-cap.png" alt = "Flux Capacitor">
+                        <img src = "/img/flux-cap.png" alt = "Flux Capacitor">
                         <a href = "#">Flux Capacitor</a>
                     </div>
                     <div class = "item">
-                        <img src = "img/flame.jpg" alt = "Flame Decals">
+                        <img src = "/img/flame.jpg" alt = "Flame Decals">
                         <a href = "#">Flame Decals</a>
                     </div>
                     <div class = "item">
-                        <img src = "img/bumper_sticker.jpg" alt = "Bumper Sticker">
+                        <img src = "/img/bumper_sticker.jpg" alt = "Bumper Sticker">
                         <a href = "#">Bumper Sticker</a>
                     </div>
                     <div class = "item">
-                        <img src = "img/hub-cap.jpg" alt = "Hub Caps">
+                        <img src = "/img/hub-cap.jpg" alt = "Hub Caps">
                         <a href = "#">Hub Caps</a>
                     </div>
                 </div>

@@ -1,2 +1,2 @@
 <img src = "/img/logo.png" alt = "Logo">
-<p>My Account</p>
+<p><a href = "/accounts/index.php?action=login">My Account</a></p>

@@ -15,7 +15,7 @@
             <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header.php'; ?>
         </header>
         <nav>
-            <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/nav.php'; ?>
+            <?php echo $navList; ?>
         </nav>
         <main>
             <h1>Content Title Here</h1>
