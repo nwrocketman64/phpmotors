@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template</title>
+    <title>Vehicle Management</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Share+Tech&display=swap" rel="stylesheet">
     <link rel = "stylesheet" href = "/css/normalize.css">
@@ -18,7 +18,14 @@
             <?php echo $navList; ?>
         </nav>
         <main>
-            <h1>Content Title Here</h1>
+            <h1>Vehicle Management</h1>
+            <?php
+                if (isset($message)) {
+                    echo $message;
+                }
+            ?>
+            <p><a href = "/vehicles/index.php/?action=classifcation">Add a car classifcation.</a></p>
+            <p><a href = "/vehicles/index.php/?action=vehicle">Add a vehicle to inventory.</a></p>
         </main>
         <footer>
             <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/footer.php'; ?>
