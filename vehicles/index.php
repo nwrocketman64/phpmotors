@@ -5,33 +5,21 @@
 require_once '../library/connections.php';
 // Get the PHP Motors model for use as needed
 require_once '../model/main-model.php';
-// Get the vehical model
+// Get the vehicle model
 require_once '../model/vehicles-model.php';
+// Get the functions library
+require_once '../library/functions.php';
 
 // Get the array of classifications
 $classifications = getClassifications();
 
 // Build a navigation bar using the $classifications array
-$navList = '<ul>';
-$navList .= "<li><a href='/index.php' title='View the PHP Motors home page'>Home</a></li>";
-foreach ($classifications as $classification) {
-    $navList .= "<li><a href='/index.php?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a></li>";
-}
-$navList .= '</ul>';
+$navList = navbar($classifications);
 
-$action = filter_input(INPUT_POST, 'action');
+$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
 if ($action == NULL) {
-    $action = filter_input(INPUT_GET, 'action');
+    $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 }
-
-// Build a car classification drop down list.
-$carClassifications = "<select name = 'carClassifications'>";
-foreach($classifications as $classification) {
-    $tag = '<option value="">'.$classification['classificationName'].'</option>';
-    $tag = substr_replace($tag, $classification['classificationId'], 15, 0);
-    $carClassifications .= $tag;
-}
-$carClassifications .= '</select>';
 
 switch ($action){
 
@@ -45,15 +33,15 @@ switch ($action){
 
     case 'addVehicle':
         // Filter the input
-        $classType = filter_input(INPUT_POST, 'carClassifications');
-        $make = filter_input(INPUT_POST, 'make');
-        $model = filter_input(INPUT_POST, 'model');
-        $description = filter_input(INPUT_POST, 'description');
-        $image = filter_input(INPUT_POST, 'image');
-        $thumb = filter_input(INPUT_POST, 'thumb');
-        $price = filter_input(INPUT_POST, 'price');
-        $stock = filter_input(INPUT_POST, 'stock');
-        $color = filter_input(INPUT_POST, 'color');
+        $classType = filter_input(INPUT_POST, 'carClassifications', FILTER_SANITIZE_STRING);
+        $make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING);
+        $model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING);
+        $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+        $image = filter_input(INPUT_POST, 'image', FILTER_SANITIZE_STRING);
+        $thumb = filter_input(INPUT_POST, 'thumb', FILTER_SANITIZE_STRING);
+        $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $stock = filter_input(INPUT_POST, 'stock', FILTER_SANITIZE_NUMBER_INT);
+        $color = filter_input(INPUT_POST, 'color', FILTER_SANITIZE_STRING);
 
         // Check for missing data
         if(empty($classType) || empty($make) || empty($model) || empty($description) || empty($image) || empty($thumb) || empty($price) || empty($stock) || empty($color)){
@@ -78,7 +66,7 @@ switch ($action){
 
     case 'addClass':
         // Filter the input
-        $newClass = filter_input(INPUT_POST, 'newClassification');
+        $newClass = filter_input(INPUT_POST, 'newClassification', FILTER_SANITIZE_STRING);
 
         // Check for missing data
         if(empty($newClass)){

@@ -111,6 +111,11 @@ main img {
     margin: 0 auto;
 }
 
+#pass-label {
+    color: red;
+    font-size: 0.5em;
+}
+
 /* Code for the footer */
 footer {
     text-align: center;

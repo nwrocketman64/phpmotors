@@ -27,22 +27,23 @@
             <form action="/accounts/index.php" method="POST">
                 <label>First Name</label>
                 <br>
-                <input name="clientFirst" id="clientFirst" type="text" required>
+                <input name="clientFirst" id="clientFirst" type="text" <?php if(isset($clientFirstname)){echo "value='$clientFirstname'";}  ?> required>
                 <br>
                 <br>
                 <label>Last Name</label>
                 <br>
-                <input name="clientLast" id="clientLast" type="text" required>
+                <input name="clientLast" id="clientLast" type="text" <?php if(isset($clientLastname)){echo "value='$clientLastname'";}  ?> required>
                 <br>
                 <br>
                 <label>Email</label>
                 <br>
-                <input name="clientEmail" id="clientEmail" type="text" required>
+                <input name="clientEmail" id="clientEmail" type="email" <?php if(isset($clientEmail)){echo "value='$clientEmail'";}  ?> required>
                 <br>
                 <br>
                 <label>Password</label>
                 <br>
-                <input name="clientPassword" id="clientPassword" type="password">
+                <span id = "pass-label">Passwords must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character</span><br>
+                <input name="clientPassword" id="clientPassword" type="password" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
                 <br>
                 <input type="submit" name="submit" id="regbtn" value="Register">
                 <!-- Add the action name - value pair -->

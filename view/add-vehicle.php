@@ -1,4 +1,23 @@
-<!DOCTYPE html>
+<?php
+
+// Build a car classification drop down list.
+$carClassifications = "<select name = 'carClassifications'>";
+foreach($classifications as $classification) {
+    $tag = '<option value=""';
+    
+    if(isset($classType)){
+        if ($classification['classificationId'] === $classType){
+            $tag .= ' selected ';
+        }
+    }
+
+    $tag .= '>'.$classification['classificationName'].'</option>';
+    $tag = substr_replace($tag, $classification['classificationId'], 15, 0);
+    $carClassifications .= $tag;
+}
+$carClassifications .= '</select>';
+
+?><!DOCTYPE html>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
@@ -33,42 +52,42 @@
                 <br>
                 <label>Make</label>
                 <br>
-                <input type="text" name="make" id="make">
+                <input type="text" name="make" id="make" <?php if(isset($make)){echo "value='$make'";}  ?> required>
                 <br>
                 <br>
                 <label>Model</label>
                 <br>
-                <input type="text" name="model" id="model">
+                <input type="text" name="model" id="model" <?php if(isset($model)){echo "value='$model'";}  ?> required>
                 <br>
                 <br>
                 <label>Description</label>
                 <br>
-                <textarea name="description" rows="10" cols="30"></textarea>
+                <textarea name="description" rows="10" cols="30" required><?php if(isset($description)){echo "$description";}  ?></textarea>
                 <br>
                 <br>
                 <label>Image Path</label>
                 <br>
-                <input type="text" name="image" id="image">
+                <input type="text" name="image" id="image" <?php if(isset($image)){echo "value='$image'";}  ?> required>
                 <br>
                 <br>
                 <label>Thumbnail Path</label>
                 <br>
-                <input type="text" name="thumb" id="thumb">
+                <input type="text" name="thumb" id="thumb" <?php if(isset($thumb)){echo "value='$thumb'";}  ?> required>
                 <br>
                 <br>
                 <label>Price</label>
                 <br>
-                <input type="number" name="price" id="price">
+                <input type="number" name="price" id="price" <?php if(isset($price)){echo "value='$price'";}  ?> required>
                 <br>
                 <br>
                 <label># In Stock</label>
                 <br>
-                <input type="number" name="stock" id="stock">
+                <input type="number" name="stock" id="stock" <?php if(isset($stock)){echo "value='$stock'";}  ?> required>
                 <br>
                 <br>
                 <label>Color</label>
                 <br>
-                <input type="text" name="color" id="color">
+                <input type="text" name="color" id="color" <?php if(isset($color)){echo "value='$color'";}  ?> required>
                 <br>
                 <input type="submit" name="submit" id="regbtn" value="Add Vehicle">
                 <!-- Add the action name - value pair -->
