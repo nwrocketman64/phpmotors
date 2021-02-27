@@ -23,8 +23,11 @@
                 if (isset($message)) {
                     echo $message;
                 }
+                if (isset($_SESSION['message'])) {
+                    echo $_SESSION['message'];
+                }
             ?>
-            <form action="/accounts/index.php" method="POST">
+            <form action="/accounts/" method="POST">
                 <label>Email</label>
                 <br>
                 <input name="clientEmail" id="clientEmail" type="email" <?php if(isset($clientEmail)){echo "value='$clientEmail'";}  ?> required>

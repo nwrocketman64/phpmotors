@@ -30,6 +30,12 @@ header p {
     float: right;
 }
 
+.name-label {
+    font-size: 0.6em;
+    clear: both;
+    float: right;
+}
+
 /* Code for the navigation */
 nav {
     clear: both;
