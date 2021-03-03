@@ -92,7 +92,99 @@ switch ($action){
         }
         break;
     
+    /* * ********************************** 
+    * Get vehicles by classificationId 
+    * Used for starting Update & Delete process 
+    * ************************************/ 
+    case 'getInventoryItems': 
+        // Get the classificationId 
+        $classificationId = filter_input(INPUT_GET, 'classificationId', FILTER_SANITIZE_NUMBER_INT); 
+        // Fetch the vehicles by classificationId from the DB 
+        $inventoryArray = getInventoryByClassification($classificationId); 
+        // Convert the array to a JSON object and send it back 
+        echo json_encode($inventoryArray); 
+        break;
+
+    case 'mod':
+        $invId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $invInfo = getInvItemInfo($invId);
+        if(count($invInfo)<1){
+            $message = 'Sorry, no vehicle information could be found.';
+        }
+        include '../view/vehicle-update.php';
+        exit;
+        break;
+
+    case 'del':
+        $invId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $invInfo = getInvItemInfo($invId);
+        if (count($invInfo) < 1) {
+            $message = 'Sorry, no vehicle information could be found.';
+        }
+        include '../view/vehicle-delete.php';
+        exit;
+        break;
+
+    case 'updateVehicle':
+        // Filter the input
+        $classType = filter_input(INPUT_POST, 'carClassifications', FILTER_SANITIZE_STRING);
+        $make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING);
+        $model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING);
+        $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+        $image = filter_input(INPUT_POST, 'image', FILTER_SANITIZE_STRING);
+        $thumb = filter_input(INPUT_POST, 'thumb', FILTER_SANITIZE_STRING);
+        $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $stock = filter_input(INPUT_POST, 'stock', FILTER_SANITIZE_NUMBER_INT);
+        $color = filter_input(INPUT_POST, 'color', FILTER_SANITIZE_STRING);
+        $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
+
+        // Check for missing data
+        if(empty($classType) || empty($make) || empty($model) || empty($description) || empty($image) || empty($thumb) || empty($price) || empty($stock) || empty($color)){
+            $message = '<p>Please provide information for all empty form fields.</p>';
+            include '../view/vehicle-update.php';
+            exit; 
+        }
+
+        // Add Data to database
+        $updateResult = updateVehicle($make, $model, $description, $image, $thumb, $price, $stock, $color, $classType, $invId);
+        // Check and report the result
+        if($updateResult === 1){
+            $message = "<p>Vehical update was a success.</p>";
+            $_SESSION['message'] = $message;
+            header( 'location: /vehicles/');
+            exit;
+        } else {
+            $message = "<p>Sorry, but the update failed. Please try again.</p>";
+            include '../view/vehicle-update.php';
+            exit;
+        }
+        break;
+
+    case 'deleteVehicle':
+        // Filter the input
+        $make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING);
+        $model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING);
+        $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
+
+        // Add Data to database
+        $deleteResult = deleteVehicle($invId);
+        // Check and report the result
+        if($deleteResult === 1){
+            $message = "<p>Vehical delete of $make $model was a success.</p>";
+            $_SESSION['message'] = $message;
+            header('location: /vehicles/');
+            exit;
+        } else {
+            $message = "<p>Sorry, but the delete of $make $model failed. Please try again.</p>";
+            $_SESSION['message'] = $message;
+	        header('location: /vehicles/');
+	        exit;
+        }
+        break;
+
     default:
+        $classificationList = buildClassificationList($classifications);
+
         include "../view/vehicle-management.php";
         break;
 }

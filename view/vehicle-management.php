@@ -1,6 +1,10 @@
 <?php 
-if (!$_SESSION['loggedin'] || $_SESSION['clientData']['clientLevel'] <= 1){
+if (!$_SESSION['loggedin'] || $_SESSION['clientData']['clientLevel'] < 2){
     header('Location: /index.php/');
+}
+
+if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
 }
 ?><!DOCTYPE html>
 <html lang="en-US">
@@ -30,10 +34,22 @@ if (!$_SESSION['loggedin'] || $_SESSION['clientData']['clientLevel'] <= 1){
             ?>
             <p><a href = "/vehicles/index.php/?action=classifcation">Add a car classifcation.</a></p>
             <p><a href = "/vehicles/index.php/?action=vehicle">Add a vehicle to inventory.</a></p>
+            <?php
+            if (isset($classificationList)) { 
+                echo '<h2>Vehicles By Classification</h2>'; 
+                echo '<p>Choose a classification to see those vehicles</p>'; 
+                echo $classificationList; 
+            }
+            ?>
+            <noscript>
+                <p><strong>JavaScript Must Be Enabled to Use this Page.</strong></p>
+            </noscript>
+            <table id="inventoryDisplay"></table>
         </main>
         <footer>
             <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/footer.php'; ?>
         </footer>
     </div>
+    <script src="../js/inventory.js"></script>
 </body>
-</html>
+</html><?php unset($_SESSION['message']); ?>
