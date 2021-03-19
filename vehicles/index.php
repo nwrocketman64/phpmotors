@@ -13,6 +13,8 @@ require_once '../model/vehicles-model.php';
 // Get the functions library
 require_once '../library/functions.php';
 
+require_once '../model/uploads-model.php';
+
 // Get the array of classifications
 $classifications = getClassifications();
 
@@ -199,6 +201,10 @@ switch ($action){
 
         // Get the vehicles informations
         $vehiclesDetail = getVehicleInfo($vehicleId);
+
+        // Get the vehicle thumbnails
+        $thumbnailsPath = getThumbnails($vehicleId);
+        $thumbnailsList = thumbnailHTML($thumbnailsPath);
 
         // If empty, return an error message back to the user.
         if (empty($vehiclesDetail)){
