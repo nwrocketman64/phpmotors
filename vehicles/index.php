@@ -10,6 +10,10 @@ require_once '../library/connections.php';
 require_once '../model/main-model.php';
 // Get the vehicle model
 require_once '../model/vehicles-model.php';
+// Get the account model.
+require_once '../model/accounts-model.php';
+// Get the review model
+require_once '../model/reviews-model.php';
 // Get the functions library
 require_once '../library/functions.php';
 
@@ -205,6 +209,16 @@ switch ($action){
         // Get the vehicle thumbnails
         $thumbnailsPath = getThumbnails($vehicleId);
         $thumbnailsList = thumbnailHTML($thumbnailsPath);
+
+        // Get the vehicle reviews.
+        $reviewList = getInventoryReviews($vehicleId);
+
+        // Build the html for the review list.
+        $reviewHTML = '<div class = "reviews">';
+        foreach($reviewList as $review){
+            $reviewHTML .= buildReview($review['clientFirstname'], $review['clientLastname'], $review['reviewDate'], $review['reviewText']);
+        }
+        $reviewHTML .= "</div>";
 
         // If empty, return an error message back to the user.
         if (empty($vehiclesDetail)){

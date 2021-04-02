@@ -44,10 +44,12 @@ if (!$_SESSION['loggedin']){
                 echo "<a href = '/vehicles/'>Vehicle Management</a>";
             }
             ?>
+            <h3>Your Reviews</h3>
+            <?php echo $reviewHTML; ?>
         </main>
         <footer>
             <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/footer.php'; ?>
         </footer>
     </div>
 </body>
-</html>
+</html><?php unset($_SESSION['message']); ?>
